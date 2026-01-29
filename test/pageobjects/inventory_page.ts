@@ -1,4 +1,3 @@
-import { $, $$ } from '@wdio/globals';
 import { Layout } from './layout';
 
 export class InventoryPage extends Layout {

@@ -1,6 +1,3 @@
-
-import { $ } from '@wdio/globals'
-
 export class Layout {
   private menuButtonLocator = "#react-burger-menu-btn";
   private cartBadgeLocator = ".shopping_cart_badge";

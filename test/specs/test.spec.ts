@@ -1,4 +1,3 @@
-import { expect } from "@wdio/globals";
 import { swagLabs } from "../pageobjects/page_factory";
 import { saucedemoData } from "../testData.ts";
 
@@ -18,7 +17,7 @@ describe("Swag Labs tests", () => {
     await swagLabs.loginPage.navigate();
     await swagLabs.loginPage.clickLoginButton();
     await expect(browser).toHaveUrl("https://www.saucedemo.com/");
-    expect(swagLabs.loginPage.errorMessage).toHaveText(
+    await expect(swagLabs.loginPage.errorMessage).toHaveText(
       "Epic sadface: Username is required",
     );
   });
