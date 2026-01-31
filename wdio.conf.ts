@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -125,7 +126,11 @@ export const config: WebdriverIO.Config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['dot'], 
+    reporters: ['dot', 'spec',
+        ['allure', {outputDir: 'allure-results',
+             disableWebdriverStepsReporting: true, 
+             disableWebdriverScreenshotsReporting: false}] 
+    ], 
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -272,8 +277,15 @@ export const config: WebdriverIO.Config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        const reportDir = 'allure-report';
+        const resultsDir = 'allure-results';
+        try {
+        execSync(`npx allure generate ./${resultsDir} --clean -o ./${reportDir}`)
+        } catch (e) {
+        console.error("Failed to generate allure report")
+    }
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session
